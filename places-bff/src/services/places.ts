@@ -2,6 +2,8 @@ import { PlacesListEntry } from '../models/places';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { getPlacesHttpClient } from './http-client';
 
+import filter from 'lodash/filter';
+
 interface UpstreamPlace {
     _class: string;
 }
@@ -80,8 +82,15 @@ export class DummyPlacesServiceImpl implements PlacesService {
         );
     }
 
-    searchPlaces(_query: string): Promise<PlacesListEntry[]> {
-        return this.listPlaces();
+    async searchPlaces(query: string): Promise<PlacesListEntry[]> {
+        const places = await this.listPlaces();
+        const searchString = query.toLowerCase();
+
+        return filter(places, (place: PlacesListEntry) => {
+            const searchContent =
+                `${place.displayName} ${place.displayAddress}`.toLowerCase();
+            return searchContent.includes(searchString);
+        });
     }
 }
 

@@ -2,6 +2,7 @@ import { DummyPlacesServiceImpl } from './places';
 import { createAxiosMock, createMockResponse } from '../test-utils/axios-mock';
 import mocked = jest.mocked;
 import { AxiosInstance } from 'axios';
+import { ALL_LIST_PLACES, LIST_PLACES } from './__test__/places-fixture';
 
 describe('DummyPlacesServiceImpl', () => {
     let mockHttpClient: AxiosInstance;
@@ -38,12 +39,49 @@ describe('DummyPlacesServiceImpl', () => {
         it('should throw error when a unknown _class value is encountered', () => {
             mocked(mockHttpClient.get).mockReturnValue(
                 createMockResponse({
-                    // Assuming that random guy doesn't provide data at some point
-                    _class: 'name.jiayong.storage.model.localentry.InvalidEntry',
+                    _class: 'com.example.storage.model.localentry.InvalidEntry',
                 }),
             );
 
             expect(service.listPlaces()).rejects.toThrow(TypeError);
+        });
+    });
+
+    describe('#searchPlaces()', () => {
+        it('should match display name', async () => {
+            service.listPlaces = jest.fn();
+            mocked(service.listPlaces).mockReturnValueOnce(
+                Promise.resolve(ALL_LIST_PLACES),
+            );
+
+            const results = await service.searchPlaces('Weyland');
+
+            expect(results).toContain(LIST_PLACES.WEYLAND_YUTANI);
+            expect(results).not.toContain(LIST_PLACES.CYBERDYNE);
+        });
+
+        it('should match display address', async () => {
+            service.listPlaces = jest.fn();
+            mocked(service.listPlaces).mockReturnValueOnce(
+                Promise.resolve(ALL_LIST_PLACES),
+            );
+
+            const results = await service.searchPlaces('Exempleville');
+
+            expect(results).toContain(LIST_PLACES.CYBERDYNE);
+            expect(results).not.toContain(LIST_PLACES.WEYLAND_YUTANI);
+        });
+
+        it('should match case insensitively', async () => {
+            service.listPlaces = jest.fn();
+            mocked(service.listPlaces).mockReturnValue(
+                Promise.resolve(ALL_LIST_PLACES),
+            );
+
+            const lowerCaseResults = await service.searchPlaces('weyland');
+            const mixedCaseResults = await service.searchPlaces('weyLanD');
+
+            expect(lowerCaseResults).toEqual(mixedCaseResults);
         });
     });
 });

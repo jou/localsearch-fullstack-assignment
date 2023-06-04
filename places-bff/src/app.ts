@@ -15,4 +15,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/places', placesRouter);
 
+app.use((err, req, res, _next) => {
+    console.error(err.stack);
+    res.status(500).send('OH NOES!');
+});
+
 export default app;
