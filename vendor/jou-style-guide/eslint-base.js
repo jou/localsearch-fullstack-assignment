@@ -11,10 +11,12 @@ module.exports = {
         "eol-last": "error",
         "prefer-arrow-callback": "error",
         "no-trailing-spaces": "error",
-        "quotes": ["warn", "single", {"avoidEscape": true}]
+        "quotes": ["warn", "single", {"avoidEscape": true}],
+        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
     },
     "parserOptions": {
         "ecmaVersion": 2020,
         "sourceType": "module"
     }
 }
+
