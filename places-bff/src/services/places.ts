@@ -46,7 +46,7 @@ function convertUpstreamPlaceToPlacesListEntry(
     }
 
     throw new TypeError(
-        `Unexpected place type encountered: ${upstreamPlace._class}`,
+        `Unexpected place _class encountered: ${upstreamPlace._class}`,
     );
 }
 
