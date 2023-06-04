@@ -1,0 +1,7 @@
+{
+    "extends": "../vendor/jou-style-guide/tsconfig-jou.json",
+    "compilerOptions": {
+        "outDir": "dist"
+    },
+    "include": ["src/**/*"]
+}
