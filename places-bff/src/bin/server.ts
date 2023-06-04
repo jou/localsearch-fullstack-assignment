@@ -3,11 +3,11 @@
 /**
  * Module dependencies.
  */
+import app from '../app';
+import debugModule from 'debug';
+import http from 'http';
 
-const app = require('../app');
-const debug = require('debug')('places-bff:server');
-const http = require('http');
-
+const debug = debugModule('places-bff:server');
 /**
  * Get port from environment and store in Express.
  */
