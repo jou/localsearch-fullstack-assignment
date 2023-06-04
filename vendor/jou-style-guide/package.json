@@ -1,0 +1,22 @@
+{
+  "name": "@npm-jou/web-style-guide",
+  "version": "1.3.0",
+  "description": "@jou's JS/TS styles",
+  "main": "index.js",
+  "author": "Jiayong Ou <code@jou.orly.ch>",
+  "license": "MIT",
+  "peerDependencies": {
+    "eslint": "^7.10.0",
+    "prettier": "^2.1.2"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-node": "^11.1.0"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {
+    "@typescript-eslint/parser": "^4.3.0",
+    "typescript": "^4.0.3"
+  }
+}

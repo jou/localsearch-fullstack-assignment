@@ -1,0 +1,14 @@
+image: docker.home.orly.ch/docker-images/docker-image-builder
+
+stages: ["build"]
+
+build-publish:
+  tags:
+    - docker
+  stage: build
+  script:
+    - "apk add -U gettext nodejs yarn npm"
+    - "npm config set @npm-jou:registry https://gitlab.home.orly.ch/api/v4/projects/${CI_PROJECT_ID}/packages/npm/"
+    - "npm config set //gitlab.home.orly.ch/api/v4/packages/npm/:_authToken $CI_JOB_TOKEN"
+    - "npm config set //gitlab.home.orly.ch/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken ${CI_JOB_TOKEN}"
+    - "yarn publish"
