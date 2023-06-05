@@ -10,6 +10,7 @@
     "test": "vitest --dom"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "vue": "^3.2.47",
     "vue-router": "^4.2.2"
   },

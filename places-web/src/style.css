@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    input[type='text'] {
+        @apply input-base
+            rounded-borders border-indigo-300
+            focus:outline-offset-0
+            bg-white;
+    }
+
+    button,
+    [type='button'],
+    [type='reset'],
+    [type='submit'] {
+        @apply input-base rounded-borders border-0;
+    }
+}
+
+@layer components {
+    .rounded-borders {
+        @apply border rounded-md;
+    }
+
+    .input-base {
+        @apply focus:outline-indigo-800 focus:outline-offset-4 focus:border-transparent p-2;
+    }
+
+    .button-primary {
+        @apply text-white
+            bg-indigo-700
+            hover:bg-indigo-800;
+    }
+}
