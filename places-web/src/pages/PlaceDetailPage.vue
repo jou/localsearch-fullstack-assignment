@@ -5,6 +5,8 @@ import { PlacesDetailEntry } from '../models/places.ts';
 import PageLayout from '../components/base/PageLayout.vue';
 import PlaceDetails from '../components/place-list/PlaceDetails.vue';
 import { storeToRefs } from 'pinia';
+import ErrorBanner from '../components/base/ErrorBanner.vue';
+import LoadingIndicator from '../components/base/LoadingIndicator.vue';
 
 const props = defineProps<{
     placeId: string;
@@ -27,7 +29,12 @@ const place = computed<PlacesDetailEntry | undefined>(
 
 <template>
     <PageLayout>
-        <PlaceDetails :place-details="place" />
+        <ErrorBanner v-if="loadingState.error" :error="loadingState.error" />
+        <PlaceDetails
+            v-if="loadingState.status === 'finished'"
+            :place-details="place"
+        />
+        <LoadingIndicator v-if="loadingState.status === 'loading'" />
     </PageLayout>
 </template>
 

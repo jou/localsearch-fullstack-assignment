@@ -8,7 +8,7 @@ defineProps<{
     <component
         :is="tagName ?? 'div'"
         v-bind="$attrs"
-        class="rounded-borders border-indigo-300 p-2"
+        class="block rounded-borders p-2"
     >
         <slot />
     </component>

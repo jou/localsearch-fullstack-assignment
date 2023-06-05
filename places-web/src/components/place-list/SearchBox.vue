@@ -26,7 +26,7 @@ const searchInput = computed({
     >
         <input
             v-model="searchInput"
-            class="places-input-base flex-auto me-2"
+            class="flex-auto me-2"
             type="text"
             placeholder="Search business entries…"
         />

@@ -1,13 +1,13 @@
 import { Router, createRouter, createWebHistory } from 'vue-router';
 
 import HelloWorldPage from './pages/HelloWorldPage.vue';
-import IndexPage from './pages/IndexPage.vue';
+import PlaceListingPage from './pages/PlaceListingPage.vue';
 import PlaceDetailPage from './pages/PlaceDetailPage.vue';
 
 const router: Router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/places', component: IndexPage },
+        { path: '/places', component: PlaceListingPage },
         {
             path: '/places/:placeId',
             component: PlaceDetailPage,
