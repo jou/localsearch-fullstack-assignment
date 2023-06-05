@@ -93,12 +93,19 @@ describe('DummyPlacesServiceImpl', () => {
                 }),
             );
 
-            const expectedId = 'expectedId';
+            const expectedId = DummyPlacesServiceImpl.DUMMY_PLACE_IDS[0];
 
             // We're just testing for side effects here, ignore returned value
             void (await service.getPlaceDetails(expectedId));
 
             expect(mockHttpClient.get).toHaveBeenCalledWith(`/${expectedId}`);
+        });
+
+        it('should resolve to undefined with an unknown place ID', async () => {
+            // We're just testing for side effects here, ignore returned value
+            const result = await service.getPlaceDetails('some very bogus ID');
+
+            expect(result).toBeUndefined();
         });
     });
 });

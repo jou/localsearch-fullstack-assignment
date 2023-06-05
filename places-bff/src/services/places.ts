@@ -120,6 +120,9 @@ export interface PlacesService {
      */
     searchPlaces(query: string): Promise<PlacesListEntry[]>;
 
+    /**
+     * Get details of the place with the given ID.
+     */
     getPlaceDetails(placeId: string): Promise<PlacesDetailEntry>;
 }
 
@@ -233,7 +236,13 @@ export class DummyPlacesServiceImpl implements PlacesService {
         });
     }
 
-    async getPlaceDetails(placeId: string): Promise<PlacesDetailEntry> {
+    async getPlaceDetails(
+        placeId: string,
+    ): Promise<PlacesDetailEntry | undefined> {
+        if (!DummyPlacesServiceImpl.DUMMY_PLACE_IDS.includes(placeId)) {
+            return undefined;
+        }
+
         const response = await this._httpClient.get<UpstreamPlace>(
             `/${placeId}`,
         );

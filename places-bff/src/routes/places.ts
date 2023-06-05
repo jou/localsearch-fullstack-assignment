@@ -38,7 +38,12 @@ router.get('/:placeId', async (req, res, next) => {
         const placesService = defaultPlacesService();
         const result = await placesService.getPlaceDetails(req.params.placeId);
 
-        res.json(result);
+        if (result) {
+            res.json(result);
+        } else {
+            res.status(404);
+            res.send('Not found');
+        }
         next();
     } catch (e) {
         next(e);
