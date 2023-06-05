@@ -16,20 +16,34 @@
     [type='submit'] {
         @apply input-base rounded-borders border-0;
     }
+
+    a {
+        @apply interactive-focus interactive-text underline underline-offset-2;
+    }
 }
 
 @layer components {
+    .interactive-focus {
+        @apply focus:outline-indigo-800 focus:outline-offset-4;
+    }
+
+    .interactive-bg {
+        @apply bg-indigo-700 hover:bg-indigo-800;
+    }
+
+    .interactive-text {
+        @apply text-indigo-700 hover:text-indigo-800;
+    }
+
     .rounded-borders {
         @apply border rounded-md;
     }
 
     .input-base {
-        @apply focus:outline-indigo-800 focus:outline-offset-4 focus:border-transparent p-2;
+        @apply interactive-focus focus:border-transparent p-2;
     }
 
     .button-primary {
-        @apply text-white
-            bg-indigo-700
-            hover:bg-indigo-800;
+        @apply text-white interactive-bg;
     }
 }

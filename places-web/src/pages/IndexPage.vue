@@ -1,27 +1,28 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 
 import SearchBox from '../components/place-list/SearchBox.vue';
 import ResultList from '../components/place-list/ResultList.vue';
-import { usePlacesStore } from '../stores/places.ts';
+import { usePlacesListStore } from '../stores/placesList.ts';
 import { storeToRefs } from 'pinia';
 import ErrorBanner from '../components/base/ErrorBanner.vue';
 import LoadingIndicator from '../components/base/LoadingIndicator.vue';
+import PageLayout from '../components/base/PageLayout.vue';
 
 const searchValue = ref('');
 
-const placesStore = usePlacesStore();
+const placesStore = usePlacesListStore();
 
 const { listEntries, listLoadingState } = storeToRefs(placesStore);
 const { fetchListEntries, searchForEntries } = placesStore;
 
-onMounted(() => {
+onBeforeMount(() => {
     fetchListEntries();
 });
 </script>
 
 <template>
-    <div class="w-full py-4">
+    <PageLayout>
         <SearchBox
             v-model="searchValue"
             @search="searchForEntries(searchValue)"
@@ -36,7 +37,7 @@ onMounted(() => {
             :places-list-items="listEntries"
         />
         <LoadingIndicator v-if="listLoadingState.status === 'loading'" />
-    </div>
+    </PageLayout>
 </template>
 
 <style scoped></style>

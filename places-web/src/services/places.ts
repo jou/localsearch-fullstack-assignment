@@ -1,4 +1,4 @@
-import { PlacesListEntry } from '../models/places.ts';
+import { PlacesDetailEntry, PlacesListEntry } from '../models/places.ts';
 import { AxiosInstance } from 'axios';
 
 export interface PlacesService {
@@ -11,6 +11,11 @@ export interface PlacesService {
      * Search for a place matching the given query.
      */
     searchPlaces(query: string): Promise<PlacesListEntry[]>;
+
+    /**
+     * Get details of the place with the given ID.
+     */
+    getPlaceDetails(placeId: string): Promise<PlacesDetailEntry>;
 }
 
 class AxiosPlacesService implements PlacesService {
@@ -36,6 +41,14 @@ class AxiosPlacesService implements PlacesService {
         const response = await this._httpClient.get<PlacesListEntry[]>(
             '/places/search',
             { params: { q: query } },
+        );
+
+        return response.data;
+    }
+
+    async getPlaceDetails(placeId: string): Promise<PlacesDetailEntry> {
+        const response = await this._httpClient.get<PlacesDetailEntry>(
+            `/places/${placeId}`,
         );
 
         return response.data;

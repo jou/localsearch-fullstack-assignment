@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { PlacesService } from '../services/places.ts';
-import { usePlacesStore } from './places.ts';
+import { usePlacesListStore } from './placesList.ts';
 import { createPinia, setActivePinia } from 'pinia';
 import { PLACES_FIXTURE } from './__test__/places-fixture.ts';
 
@@ -8,6 +8,7 @@ function createMockPlacesService(): PlacesService {
     return {
         listPlaces: vi.fn(),
         searchPlaces: vi.fn(),
+        getPlaceDetails: vi.fn(),
     };
 }
 
@@ -19,7 +20,7 @@ vi.mock('../hooks/places-service', () => {
     };
 });
 
-describe('PlacesStore', () => {
+describe('PlacesListStore', () => {
     beforeEach(() => {
         setActivePinia(createPinia());
         mockPlacesService = createMockPlacesService();
@@ -27,7 +28,7 @@ describe('PlacesStore', () => {
 
     describe('fetching', () => {
         it('should call get the list of places from placesService', async () => {
-            const store = usePlacesStore();
+            const store = usePlacesListStore();
             await store.fetchListEntries();
 
             expect(mockPlacesService.listPlaces).toHaveBeenCalled();
@@ -38,7 +39,7 @@ describe('PlacesStore', () => {
                 Promise.resolve(PLACES_FIXTURE),
             );
 
-            const store = usePlacesStore();
+            const store = usePlacesListStore();
             await store.fetchListEntries();
 
             expect(store.listEntries).toEqual(PLACES_FIXTURE);
@@ -46,13 +47,13 @@ describe('PlacesStore', () => {
 
         describe('loading state', () => {
             it('should be `not-started` initially', () => {
-                const store = usePlacesStore();
+                const store = usePlacesListStore();
 
                 expect(store.listLoadingState.status).toBe('not-started');
             });
 
             it('should transition to `loading` and then `finished` on success', async () => {
-                const store = usePlacesStore();
+                const store = usePlacesListStore();
 
                 vi.mocked(mockPlacesService.listPlaces).mockReturnValue(
                     Promise.resolve(PLACES_FIXTURE),
@@ -66,7 +67,7 @@ describe('PlacesStore', () => {
             });
 
             it('should transition to `loading` and then `failed` when there was an error', async () => {
-                const store = usePlacesStore();
+                const store = usePlacesListStore();
 
                 vi.mocked(mockPlacesService.listPlaces).mockReturnValue(
                     Promise.reject(new Error()),
@@ -80,7 +81,7 @@ describe('PlacesStore', () => {
             });
 
             it('should populate the error property on error', async () => {
-                const store = usePlacesStore();
+                const store = usePlacesListStore();
                 const expectedError = new Error();
 
                 vi.mocked(mockPlacesService.listPlaces).mockReturnValue(
@@ -93,7 +94,7 @@ describe('PlacesStore', () => {
             });
 
             it('should clear error when issuing a new fetch', async () => {
-                const store = usePlacesStore();
+                const store = usePlacesListStore();
                 vi.mocked(mockPlacesService.listPlaces).mockReturnValueOnce(
                     Promise.reject(new Error()),
                 );
@@ -117,7 +118,7 @@ describe('PlacesStore', () => {
         it('should call pass the query placesService', async () => {
             const expectedQuery = 'expected query';
 
-            const store = usePlacesStore();
+            const store = usePlacesListStore();
             await store.searchForEntries(expectedQuery);
 
             expect(mockPlacesService.searchPlaces).toHaveBeenCalledWith(
@@ -130,7 +131,7 @@ describe('PlacesStore', () => {
                 Promise.resolve(PLACES_FIXTURE),
             );
 
-            const store = usePlacesStore();
+            const store = usePlacesListStore();
             await store.searchForEntries('');
 
             expect(store.listEntries).toEqual(PLACES_FIXTURE);
@@ -138,13 +139,13 @@ describe('PlacesStore', () => {
 
         describe('loading state', () => {
             it('should be `not-started` initially', () => {
-                const store = usePlacesStore();
+                const store = usePlacesListStore();
 
                 expect(store.listLoadingState.status).toBe('not-started');
             });
 
             it('should transition to `loading` and then `finished` on success', async () => {
-                const store = usePlacesStore();
+                const store = usePlacesListStore();
 
                 vi.mocked(mockPlacesService.searchPlaces).mockReturnValue(
                     Promise.resolve(PLACES_FIXTURE),
@@ -158,7 +159,7 @@ describe('PlacesStore', () => {
             });
 
             it('should transition to `loading` and then `failed` when there was an error', async () => {
-                const store = usePlacesStore();
+                const store = usePlacesListStore();
 
                 vi.mocked(mockPlacesService.searchPlaces).mockReturnValue(
                     Promise.reject(new Error()),
@@ -172,7 +173,7 @@ describe('PlacesStore', () => {
             });
 
             it('should populate the error property on error', async () => {
-                const store = usePlacesStore();
+                const store = usePlacesListStore();
                 const expectedError = new Error();
 
                 vi.mocked(mockPlacesService.searchPlaces).mockReturnValue(
@@ -185,7 +186,7 @@ describe('PlacesStore', () => {
             });
 
             it('should clear error when issuing a new fetch', async () => {
-                const store = usePlacesStore();
+                const store = usePlacesListStore();
                 vi.mocked(mockPlacesService.searchPlaces).mockReturnValueOnce(
                     Promise.reject(new Error()),
                 );

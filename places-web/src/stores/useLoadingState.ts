@@ -1,8 +1,4 @@
-import { defineStore } from 'pinia';
 import { readonly, Ref, ref } from 'vue';
-
-import { PlacesListEntry } from '../models/places';
-import { usePlacesService } from '../hooks/places-service';
 
 export type LoadingStatus = 'not-started' | 'loading' | 'finished' | 'error';
 
@@ -13,11 +9,13 @@ export interface LoadingState {
 
 export interface LoadingStateHook {
     state: Readonly<Ref<LoadingState>>;
+
     trackPromise(promise: Promise<unknown>): Promise<void>;
+
     trackAsyncFunction(fn: () => Promise<unknown>): Promise<void>;
 }
 
-function useLoadingState(): LoadingStateHook {
+export function useLoadingState(): LoadingStateHook {
     const loadingState = ref<LoadingState>({
         status: 'not-started',
         error: null,
@@ -52,33 +50,3 @@ function useLoadingState(): LoadingStateHook {
         trackAsyncFunction,
     };
 }
-
-export const usePlacesStore = defineStore('places', () => {
-    const placesService = usePlacesService();
-
-    const listEntries = ref<PlacesListEntry[]>([]);
-
-    const {
-        state: listLoadingState,
-        trackAsyncFunction: trackListLoadingState,
-    } = useLoadingState();
-
-    function fetchListEntries(): Promise<void> {
-        return trackListLoadingState(async () => {
-            listEntries.value = await placesService.listPlaces();
-        });
-    }
-
-    function searchForEntries(query: string): Promise<void> {
-        return trackListLoadingState(async () => {
-            listEntries.value = await placesService.searchPlaces(query);
-        });
-    }
-
-    return {
-        listEntries,
-        listLoadingState,
-        fetchListEntries,
-        searchForEntries,
-    };
-});

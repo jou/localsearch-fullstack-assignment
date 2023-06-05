@@ -1,4 +1,4 @@
-import { PlacesListEntry } from '../../models/places';
+import { PlacesDetailEntry, PlacesListEntry } from '../../models/places';
 import { range } from 'lodash';
 
 export const PLACES_FIXTURE: PlacesListEntry[] = range(8).map(
@@ -8,3 +8,11 @@ export const PLACES_FIXTURE: PlacesListEntry[] = range(8).map(
         displayAddress: `displayAddress ${i}`,
     }),
 );
+
+export const PLACE_DETAIL_FIXTURE: PlacesDetailEntry = {
+    entryId: 'some id',
+    displayName: 'some place',
+    displayAddress: 'somewhere',
+    openingHours: null,
+    links: [],
+};
