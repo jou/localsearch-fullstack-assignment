@@ -2,12 +2,8 @@
     "extends": "../vendor/jou-style-guide/tsconfig-jou.json",
     "compilerOptions": {
         "outDir": "dist",
+        "module": "commonjs",
         "sourceMap": true
     },
     "include": ["src/**/*"],
-    "ts-node": {
-        "compilerOptions": {
-            "module": "commonjs"
-        }
-    }
 }
