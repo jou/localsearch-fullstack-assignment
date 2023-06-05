@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 import { PlacesListEntry } from '../models/places';
 import { usePlacesService } from '../hooks/places-service';
-import { useLoadingState } from './useLoadingState.ts';
+import { useLoadingState } from '../hooks/loading-state.ts';
 
 export const usePlacesListStore = defineStore('placesList', () => {
     const placesService = usePlacesService();

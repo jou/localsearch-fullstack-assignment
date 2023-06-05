@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { PlacesDetailEntry } from '../models/places.ts';
-import { LoadingState, useLoadingState } from './useLoadingState.ts';
+import { useLoadingState } from '../hooks/loading-state.ts';
 import { usePlacesService } from '../hooks/places-service.ts';
 
 export interface PlaceDetailStatus {
