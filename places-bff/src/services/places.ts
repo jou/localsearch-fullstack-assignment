@@ -12,6 +12,10 @@ import { head } from 'lodash';
 
 import filter from 'lodash/filter';
 
+// NOTE: (jou) This upper part here declares the shape of the REST models we expect to get from the upstream API. The
+//             REST models are internal details and are not exported. Outside the service, we only ever handle domain
+//             models and every REST model goes through a converter to get their domain representation.
+
 interface UpstreamPlace {
     _class: string;
 }
@@ -22,7 +26,7 @@ interface PlaceLocalEntry extends UpstreamPlace {
     displayed_what: string;
     displayed_where: string;
 
-    // NOTE(jou): Not sure how optional they are
+    // NOTE: (jou) Not sure how required those two are
     addresses?: UpstreamAddress[];
     opening_hours?: UpstreamOpeningHours;
 }
@@ -109,23 +113,6 @@ function convertUpstreamOpeningHours(
     };
 }
 
-export interface PlacesService {
-    /**
-     * Get a list of available places.
-     */
-    listPlaces(): Promise<PlacesListEntry[]>;
-
-    /**
-     * Search for a place matching the given query.
-     */
-    searchPlaces(query: string): Promise<PlacesListEntry[]>;
-
-    /**
-     * Get details of the place with the given ID.
-     */
-    getPlaceDetails(placeId: string): Promise<PlacesDetailEntry>;
-}
-
 function convertUpstreamPlaceToPlacesListEntry(
     upstreamPlace: UpstreamPlace,
 ): PlacesListEntry {
@@ -137,6 +124,7 @@ function convertUpstreamPlaceToPlacesListEntry(
         };
     }
 
+    // NOTE: (jou) Probably not the best idea to crash & burn on encountering an unknown `_class`…
     throw new TypeError(
         `Unexpected place _class encountered: ${upstreamPlace._class}`,
     );
@@ -146,7 +134,7 @@ function convertUpstreamPlaceToPlacesDetailEntry(
     upstreamPlace: UpstreamPlace,
 ): PlacesDetailEntry {
     if (isPlaceLocalEntry(upstreamPlace)) {
-        // Assuming that there can be only one business address for now
+        // NOTE: (jou) Assuming that there can be only one business address for now
         const businessAddress: UpstreamBusinessAddress | undefined = head(
             findBusinessAddresses(upstreamPlace.addresses),
         );
@@ -196,7 +184,29 @@ function convertUpstreamContactToLink(
 }
 
 /**
+ * Service that handles fetching of places in different ways.
+ */
+export interface PlacesService {
+    /**
+     * Get a list of available places.
+     */
+    listPlaces(): Promise<PlacesListEntry[]>;
+
+    /**
+     * Search for a place matching the given query.
+     */
+    searchPlaces(query: string): Promise<PlacesListEntry[]>;
+
+    /**
+     * Get details of the place with the given ID.
+     */
+    getPlaceDetails(placeId: string): Promise<PlacesDetailEntry>;
+}
+
+/**
  * `PlacesService` with dummy data.
+ *
+ * NOTE: (jou) Some kind of cache might be advisable here so we don't need to fetch the same thing over and over.
  */
 export class DummyPlacesServiceImpl implements PlacesService {
     static DUMMY_PLACE_IDS = [
@@ -253,6 +263,8 @@ export class DummyPlacesServiceImpl implements PlacesService {
 
 let defaultPlacesServiceInstance: PlacesService | null = null;
 
+// NOTE: (jou) Exporting as a factory function returning a `PlacesService` so we can easily switch implementation and
+//             mock it in tests.
 export function defaultPlacesService(): PlacesService {
     if (!defaultPlacesServiceInstance) {
         defaultPlacesServiceInstance = new DummyPlacesServiceImpl(

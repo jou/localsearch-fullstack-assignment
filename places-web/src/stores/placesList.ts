@@ -5,6 +5,8 @@ import { PlacesListEntry } from '../models/places';
 import { usePlacesService } from '../hooks/places-service';
 import { useLoadingState } from '../hooks/loading-state.ts';
 
+// NOTE: (jou) This is the store that handles listing & searching of places.
+
 export const usePlacesListStore = defineStore('placesList', () => {
     const placesService = usePlacesService();
 

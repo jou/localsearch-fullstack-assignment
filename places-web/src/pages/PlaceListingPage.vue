@@ -25,8 +25,8 @@ onBeforeMount(() => {
     <PageLayout>
         <SearchBox
             v-model="searchValue"
-            @search="searchForEntries(searchValue)"
             class="mb-8"
+            @search="searchForEntries(searchValue)"
         />
         <ErrorBanner
             v-if="listLoadingState.error"

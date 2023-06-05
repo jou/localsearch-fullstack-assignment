@@ -1,4 +1,5 @@
-// NOTE(jou): They're copied from places-bff for now, might make sense to have them in a shared package
+// NOTE: (jou) They're copied from places-bff for now, might make sense to have them in a shared package. Comments from
+//             the copy in places-bff also applies here
 
 export interface PlacesListEntry {
     entryId: string;
@@ -30,12 +31,20 @@ export type WeekdayName =
     | 'sunday';
 
 export interface OpeningPeriod {
+    /** Start time of the period in 24h format */
     start: string;
+    /** End time of the period in 24h format */
     end: string;
-    type: 'OPEN' | 'CLOSE';
+    // NOTE: (jou) only encountered `OPEN` so far
+    type: 'OPEN';
 }
 
 export interface OpeningHours {
-    days: Record<WeekdayName, OpeningPeriod[]>;
+    /**
+     * Opening periods per weekday. If a weekday is missing, it means that it's closed. For weekdays with
+     * `OpeningPeriod`s available, any time of day not covered by one of the `OpeningPeriod` can be assumed as
+     * closed
+     */
+    days: Partial<Record<WeekdayName, OpeningPeriod[]>>;
     closedOnHolidays: boolean;
 }

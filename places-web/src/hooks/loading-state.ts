@@ -1,5 +1,7 @@
 import { readonly, Ref, ref } from 'vue';
 
+// NOTE: (jou) This is the store that handles place detail entities.
+
 export type LoadingStatus = 'not-started' | 'loading' | 'finished' | 'error';
 
 export interface LoadingState {

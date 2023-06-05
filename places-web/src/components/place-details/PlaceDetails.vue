@@ -45,6 +45,7 @@ const phoneLinks = computed(() =>
             <div>
                 <PlaceDetailsSection>
                     <template #title>Opening Hours</template>
+                    <!-- NOTE: (jou) Not implemented yet -->
                     <pre>
 Monday          11:30 - 15:00
 Tuesday-Friday  18:30 - 00:00
