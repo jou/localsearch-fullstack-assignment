@@ -3,7 +3,7 @@ import { usePlaceDetailsStore } from '../stores/placeDetails.ts';
 import { computed, watchEffect } from 'vue';
 import { PlacesDetailEntry } from '../models/places.ts';
 import PageLayout from '../components/base/PageLayout.vue';
-import PlaceDetails from '../components/place-list/PlaceDetails.vue';
+import PlaceDetails from '../components/place-details/PlaceDetails.vue';
 import { storeToRefs } from 'pinia';
 import ErrorBanner from '../components/base/ErrorBanner.vue';
 import LoadingIndicator from '../components/base/LoadingIndicator.vue';

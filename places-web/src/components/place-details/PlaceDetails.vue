@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { PlacesDetailEntry } from '../../models/places.ts';
 import { computed } from 'vue';
-import PlaceDetailsSection from './place-details/PlaceDetailsSection.vue';
-import PlaceContactLink from './place-details/PlaceContactLink.vue';
+import PlaceDetailsSection from './PlaceDetailsSection.vue';
+import PlaceContactLink from './PlaceContactLink.vue';
 
 const props = defineProps<{
     placeDetails?: PlacesDetailEntry;

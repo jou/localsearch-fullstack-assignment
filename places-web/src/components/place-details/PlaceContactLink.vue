@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PlaceLink } from '../../../models/places.ts';
+import { PlaceLink } from '../../models/places.ts';
 
 defineProps<{
     link: PlaceLink;
