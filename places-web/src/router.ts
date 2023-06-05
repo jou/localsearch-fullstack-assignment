@@ -1,6 +1,5 @@
 import { Router, createRouter, createWebHistory } from 'vue-router';
 
-import HelloWorldPage from './pages/HelloWorldPage.vue';
 import PlaceListingPage from './pages/PlaceListingPage.vue';
 import PlaceDetailPage from './pages/PlaceDetailPage.vue';
 
@@ -17,7 +16,6 @@ const router: Router = createRouter({
                 };
             },
         },
-        { path: '/hello', component: HelloWorldPage },
         { path: '/', redirect: '/places' },
     ],
 });
