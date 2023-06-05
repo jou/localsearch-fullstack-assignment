@@ -5,6 +5,8 @@ import SearchBox from '../components/place-list/SearchBox.vue';
 import ResultList from '../components/place-list/ResultList.vue';
 import { usePlacesStore } from '../stores/places.ts';
 import { storeToRefs } from 'pinia';
+import ErrorBanner from '../components/base/ErrorBanner.vue';
+import LoadingIndicator from '../components/base/LoadingIndicator.vue';
 
 const searchValue = ref('');
 
@@ -21,10 +23,15 @@ onMounted(() => {
 <template>
     <div class="w-full py-4">
         <SearchBox v-model="searchValue" class="mb-8" />
+        <ErrorBanner
+            v-if="listLoadingState.error"
+            :error="listLoadingState.error"
+        />
         <ResultList
             v-if="listLoadingState.status === 'finished'"
             :places-list-items="listEntries"
         />
+        <LoadingIndicator v-if="listLoadingState.status === 'loading'" />
     </div>
 </template>
 
