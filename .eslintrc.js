@@ -1,9 +1,5 @@
 module.exports = {
-    extends: [
-        'eslint:recommended',
-        './vendor/jou-style-guide/eslint-node',
-        './vendor/jou-style-guide/eslint-typescript',
-    ],
+    extends: ['eslint:recommended'],
     overrides: [
         {
             files: [
