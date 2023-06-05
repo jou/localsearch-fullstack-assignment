@@ -9,11 +9,14 @@ defineProps<{
 
 <template>
     <div class="grid grid-cols-3 gap-2">
-        <ResultListItem
-            v-for="placesListItem in placesListItems"
-            :key="placesListItem.entryId"
-            :places-list-item="placesListItem"
-        />
+        <template v-if="placesListItems.length > 0">
+            <ResultListItem
+                v-for="placesListItem in placesListItems"
+                :key="placesListItem.entryId"
+                :places-list-item="placesListItem"
+            />
+        </template>
+        <p v-else>No results</p>
     </div>
 </template>
 
