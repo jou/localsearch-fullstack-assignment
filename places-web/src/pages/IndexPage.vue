@@ -13,7 +13,7 @@ const searchValue = ref('');
 const placesStore = usePlacesStore();
 
 const { listEntries, listLoadingState } = storeToRefs(placesStore);
-const { fetchListEntries } = placesStore;
+const { fetchListEntries, searchForEntries } = placesStore;
 
 onMounted(() => {
     fetchListEntries();
@@ -22,7 +22,11 @@ onMounted(() => {
 
 <template>
     <div class="w-full py-4">
-        <SearchBox v-model="searchValue" class="mb-8" />
+        <SearchBox
+            v-model="searchValue"
+            @search="searchForEntries(searchValue)"
+            class="mb-8"
+        />
         <ErrorBanner
             v-if="listLoadingState.error"
             :error="listLoadingState.error"

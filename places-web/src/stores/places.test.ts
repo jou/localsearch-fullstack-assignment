@@ -112,4 +112,96 @@ describe('PlacesStore', () => {
             });
         });
     });
+
+    describe('searching', () => {
+        it('should call pass the query placesService', async () => {
+            const expectedQuery = 'expected query';
+
+            const store = usePlacesStore();
+            await store.searchForEntries(expectedQuery);
+
+            expect(mockPlacesService.searchPlaces).toHaveBeenCalledWith(
+                expectedQuery,
+            );
+        });
+
+        it('should store found places in the store', async () => {
+            vi.mocked(mockPlacesService.searchPlaces).mockReturnValue(
+                Promise.resolve(PLACES_FIXTURE),
+            );
+
+            const store = usePlacesStore();
+            await store.searchForEntries('');
+
+            expect(store.listEntries).toEqual(PLACES_FIXTURE);
+        });
+
+        describe('loading state', () => {
+            it('should be `not-started` initially', () => {
+                const store = usePlacesStore();
+
+                expect(store.listLoadingState.status).toBe('not-started');
+            });
+
+            it('should transition to `loading` and then `finished` on success', async () => {
+                const store = usePlacesStore();
+
+                vi.mocked(mockPlacesService.searchPlaces).mockReturnValue(
+                    Promise.resolve(PLACES_FIXTURE),
+                );
+
+                const fetchPromise = store.searchForEntries('');
+                expect(store.listLoadingState.status).toBe('loading');
+
+                await fetchPromise;
+                expect(store.listLoadingState.status).toBe('finished');
+            });
+
+            it('should transition to `loading` and then `failed` when there was an error', async () => {
+                const store = usePlacesStore();
+
+                vi.mocked(mockPlacesService.searchPlaces).mockReturnValue(
+                    Promise.reject(new Error()),
+                );
+
+                const fetchPromise = store.searchForEntries('');
+                expect(store.listLoadingState.status).toBe('loading');
+
+                await fetchPromise;
+                expect(store.listLoadingState.status).toBe('error');
+            });
+
+            it('should populate the error property on error', async () => {
+                const store = usePlacesStore();
+                const expectedError = new Error();
+
+                vi.mocked(mockPlacesService.searchPlaces).mockReturnValue(
+                    Promise.reject(expectedError),
+                );
+
+                await store.searchForEntries('');
+
+                expect(store.listLoadingState.error).toBe(expectedError);
+            });
+
+            it('should clear error when issuing a new fetch', async () => {
+                const store = usePlacesStore();
+                vi.mocked(mockPlacesService.searchPlaces).mockReturnValueOnce(
+                    Promise.reject(new Error()),
+                );
+                vi.mocked(mockPlacesService.searchPlaces).mockReturnValueOnce(
+                    Promise.resolve(PLACES_FIXTURE),
+                );
+
+                // First fetch, fails
+                await store.searchForEntries('');
+
+                // Second fetch, should be successful
+                await store.searchForEntries('');
+
+                expect(store.listLoadingState.status).toBe('finished');
+                expect(store.listLoadingState.error).toBeNull();
+            });
+        });
+    });
 });

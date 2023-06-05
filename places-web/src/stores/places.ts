@@ -69,5 +69,16 @@ export const usePlacesStore = defineStore('places', () => {
         });
     }
 
-    return { listEntries, fetchListEntries, listLoadingState };
+    function searchForEntries(query: string): Promise<void> {
+        return trackListLoadingState(async () => {
+            listEntries.value = await placesService.searchPlaces(query);
+        });
+    }
+
+    return {
+        listEntries,
+        listLoadingState,
+        fetchListEntries,
+        searchForEntries,
+    };
 });
