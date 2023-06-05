@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { PlacesService } from '../services/places.ts';
 import { usePlacesStore } from './places.ts';
 import { createPinia, setActivePinia } from 'pinia';
-import { ALL_LIST_PLACES } from './__test__/places-fixture.ts';
+import { PLACES_FIXTURE } from './__test__/places-fixture.ts';
 
 function createMockPlacesService(): PlacesService {
     return {
@@ -35,13 +35,13 @@ describe('PlacesStore', () => {
 
         it('should store fetched places in the store', async () => {
             vi.mocked(mockPlacesService.listPlaces).mockReturnValue(
-                Promise.resolve(ALL_LIST_PLACES),
+                Promise.resolve(PLACES_FIXTURE),
             );
 
             const store = usePlacesStore();
             await store.fetchListEntries();
 
-            expect(store.listEntries).toEqual(ALL_LIST_PLACES);
+            expect(store.listEntries).toEqual(PLACES_FIXTURE);
         });
 
         describe('loading state', () => {
@@ -55,7 +55,7 @@ describe('PlacesStore', () => {
                 const store = usePlacesStore();
 
                 vi.mocked(mockPlacesService.listPlaces).mockReturnValue(
-                    Promise.resolve(ALL_LIST_PLACES),
+                    Promise.resolve(PLACES_FIXTURE),
                 );
 
                 const fetchPromise = store.fetchListEntries();
@@ -98,7 +98,7 @@ describe('PlacesStore', () => {
                     Promise.reject(new Error()),
                 );
                 vi.mocked(mockPlacesService.listPlaces).mockReturnValueOnce(
-                    Promise.resolve(ALL_LIST_PLACES),
+                    Promise.resolve(PLACES_FIXTURE),
                 );
 
                 // First fetch, fails

@@ -3,7 +3,6 @@ import { readonly, Ref, ref } from 'vue';
 
 import { PlacesListEntry } from '../models/places';
 import { usePlacesService } from '../hooks/places-service';
-import { PLACES_FIXTURE } from './__test__/places-fixture';
 
 export type LoadingStatus = 'not-started' | 'loading' | 'finished' | 'error';
 
