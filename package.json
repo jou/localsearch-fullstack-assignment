@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "npm --prefix ./places-bff install && npm --prefix ./places-web install",
+    "dev:bff": "npm --prefix ./places-bff run dev",
+    "dev:web": "npm --prefix ./places-web run dev"
   },
   "author": "",
-  "license": "ISC",
+  "license": "WTFPL",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.59.8",
     "eslint": "^8.42.0",
