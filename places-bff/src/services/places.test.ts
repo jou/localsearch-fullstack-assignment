@@ -84,4 +84,21 @@ describe('DummyPlacesServiceImpl', () => {
             expect(lowerCaseResults).toEqual(mixedCaseResults);
         });
     });
+
+    describe('getPlaceDetails()', () => {
+        it('should request the given place ID', async () => {
+            mocked(mockHttpClient.get).mockReturnValue(
+                createMockResponse({
+                    _class: 'ch.local.storage.model.localentry.v1.PlaceLocalEntry',
+                }),
+            );
+
+            const expectedId = 'expectedId';
+
+            // We're just testing for side effects here, ignore returned value
+            void (await service.getPlaceDetails(expectedId));
+
+            expect(mockHttpClient.get).toHaveBeenCalledWith(`/${expectedId}`);
+        });
+    });
 });

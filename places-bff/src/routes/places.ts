@@ -33,4 +33,16 @@ router.get('/search', async (req, res, next) => {
     }
 });
 
+router.get('/:placeId', async (req, res, next) => {
+    try {
+        const placesService = defaultPlacesService();
+        const result = await placesService.getPlaceDetails(req.params.placeId);
+
+        res.json(result);
+        next();
+    } catch (e) {
+        next(e);
+    }
+});
+
 export default router;
