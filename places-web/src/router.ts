@@ -6,8 +6,9 @@ import IndexPage from './pages/IndexPage.vue';
 const router: Router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/', component: IndexPage },
+        { path: '/places', component: IndexPage },
         { path: '/hello', component: HelloWorldPage },
+        { path: '/', redirect: '/places' },
     ],
 });
 
