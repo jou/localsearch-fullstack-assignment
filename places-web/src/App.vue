@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
     <div class="container mx-auto">
-        <HelloWorld class="p-1" msg="Hello World!" />
+        <RouterView class="p-1" />
     </div>
 </template>

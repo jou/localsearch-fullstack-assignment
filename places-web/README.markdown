@@ -10,8 +10,11 @@ This section collects notes and assumptions made for the web app.
 
 -   Create new [Vite][] app as per [its guide][vite-guide] with `vue-ts` as template & reformatted output with prettier
 -   Add [Tailwind CSS][tailwindcss] as per its [instructions for Vite][tailwindcss-vite].
+-   Add [vue-router][] per its [instructions][vue-router-instructions].
 
 [Vite]: https://vitejs.dev
 [vite-guide]: https://vitejs.dev/guide/
 [tailwindcss]: https://tailwindcss.com
 [tailwindcss-vite]: https://tailwindcss.com/docs/guides/vite
+[vue-router]: https://router.vuejs.org
+[vue-router-instructions]: https://router.vuejs.org/guide/#javascript
