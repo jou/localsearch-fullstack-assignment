@@ -1,4 +1,5 @@
 import { range } from 'lodash';
+import { DateTime } from 'luxon';
 import { WeekdayName } from '../models/places.ts';
 
 /** Maps `WeekdayName` values to JavaScript `Date`'s, e.g. JS_WEEKDAY_NAME_ORDER[0] is sunday */
@@ -20,6 +21,19 @@ const WEEKDAY_NAME_TO_JS_WEEKDAY_MAP: Record<WeekdayName, number> =
         ),
     ) as Record<WeekdayName, number>;
 
+const FORMATTED_WEEKDAY_NAMES: Record<WeekdayName, string> = Object.fromEntries(
+    Array.from(JS_WEEKDAY_NAME_ORDER.entries()).map(
+        ([weekdayNumber, weekdayName]): [WeekdayName, string] => {
+            return [
+                weekdayName,
+                DateTime.fromObject({ weekday: weekdayNumber }).toLocaleString({
+                    weekday: 'long',
+                }),
+            ];
+        },
+    ),
+) as Record<WeekdayName, string>;
+
 export function jsDayNumberToWeekdayName(jsDayNumber: number): WeekdayName {
     return JS_WEEKDAY_NAME_ORDER[jsDayNumber];
 }
@@ -38,4 +52,8 @@ export function allWeekdayNames(startOfWeek = 1): WeekdayName[] {
     return allWeekdayNumbers(startOfWeek).map((weekdayNumber) =>
         jsDayNumberToWeekdayName(weekdayNumber),
     );
+}
+
+export function formatWeekday(weekday: WeekdayName): string {
+    return FORMATTED_WEEKDAY_NAMES[weekday];
 }

@@ -3,6 +3,11 @@ import { PlacesDetailEntry } from '../../models/places.ts';
 import { computed } from 'vue';
 import PlaceDetailsSection from './PlaceDetailsSection.vue';
 import PlaceContactLink from './PlaceContactLink.vue';
+import {
+    ConsolidatedOpeningHours,
+    consolidateOpeningHours,
+} from '../../utils/opening-hours.ts';
+import OpeningHours from './OpeningHours.vue';
 
 const props = defineProps<{
     placeDetails?: PlacesDetailEntry;
@@ -11,9 +16,18 @@ const props = defineProps<{
 const webLinks = computed(() =>
     (props.placeDetails?.links ?? []).filter((link) => link.type === 'web'),
 );
+
 const phoneLinks = computed(() =>
     (props.placeDetails?.links ?? []).filter((link) => link.type === 'phone'),
 );
+
+const consolidatedHours = computed<ConsolidatedOpeningHours[]>(() => {
+    const openingHours = props.placeDetails?.openingHours;
+    if (!openingHours) {
+        return [];
+    }
+    return consolidateOpeningHours(openingHours);
+});
 </script>
 
 <template>
@@ -45,18 +59,7 @@ const phoneLinks = computed(() =>
             <div>
                 <PlaceDetailsSection>
                     <template #title>Opening Hours</template>
-                    <!-- NOTE: (jou) Not implemented yet -->
-                    <pre>
-Monday          11:30 - 15:00
-Tuesday-Friday  18:30 - 00:00
-                11:30 - 15:00
-Saturday        18:00 - 00:00
-Sunday          closed
-
-
-
-</pre
-                    >
+                    <OpeningHours :opening-hours="consolidatedHours" />
                 </PlaceDetailsSection>
             </div>
         </div>
