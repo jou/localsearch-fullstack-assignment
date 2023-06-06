@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PlacesListEntry } from '../../models/places.ts';
+import { PlacesListEntry } from '../../models/places';
 import ResultListItem from './ResultListItem.vue';
 
 defineProps<{

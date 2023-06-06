@@ -6,6 +6,7 @@ import PlaceDetailPage from './pages/PlaceDetailPage.vue';
 const router: Router = createRouter({
     history: createWebHistory(),
     routes: [
+        // NOTE: (jou) there should be a dedicated route for search, so we get bookmarkable URL for searches.
         { path: '/places', component: PlaceListingPage },
         {
             path: '/places/:placeId',

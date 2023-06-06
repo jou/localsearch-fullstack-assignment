@@ -1,4 +1,4 @@
-import { PlacesDetailEntry, PlacesListEntry } from '../models/places.ts';
+import { PlacesDetailEntry, PlacesListEntry } from '../models/places';
 import { AxiosInstance } from 'axios';
 // NOTE: (jou) The interface is a copy of the one in places-bff as well, should also consider moving this into the shared
 //             package with the domain models

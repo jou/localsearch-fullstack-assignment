@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { PlacesDetailEntry } from '../../models/places.ts';
+import { PlacesDetailEntry } from '../../models/places';
 import { computed } from 'vue';
 import PlaceDetailsSection from './PlaceDetailsSection.vue';
 import PlaceContactLink from './PlaceContactLink.vue';
 import {
     ConsolidatedOpeningHours,
     consolidateOpeningHours,
-} from '../../utils/opening-hours.ts';
+} from '../../utils/opening-hours';
 import OpeningHours from './OpeningHours.vue';
 
 const props = defineProps<{

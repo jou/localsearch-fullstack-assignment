@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BaseCard from '../base/BaseCard.vue';
-import { PlacesListEntry } from '../../models/places.ts';
+import { PlacesListEntry } from '../../models/places';
 import { RouterLink } from 'vue-router';
 
 defineProps<{

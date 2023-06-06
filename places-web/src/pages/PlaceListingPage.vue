@@ -3,7 +3,7 @@ import { onBeforeMount, ref } from 'vue';
 
 import SearchBox from '../components/place-list/SearchBox.vue';
 import ResultList from '../components/place-list/ResultList.vue';
-import { usePlacesListStore } from '../stores/placesList.ts';
+import { usePlacesListStore } from '../stores/placesList';
 import { storeToRefs } from 'pinia';
 import ErrorBanner from '../components/base/ErrorBanner.vue';
 import LoadingIndicator from '../components/base/LoadingIndicator.vue';

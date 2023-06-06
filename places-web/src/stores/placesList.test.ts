@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { PlacesService } from '../services/places.ts';
-import { usePlacesListStore } from './placesList.ts';
+import { PlacesService } from '../services/places';
+import { usePlacesListStore } from './placesList';
 import { createPinia, setActivePinia } from 'pinia';
-import { PLACES_FIXTURE } from './__test__/places-fixture.ts';
+import { PLACES_FIXTURE } from './__test__/places-fixture';
 
 function createMockPlacesService(): PlacesService {
     return {

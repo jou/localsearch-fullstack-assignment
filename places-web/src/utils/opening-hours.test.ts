@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { OpeningHours } from '../models/places.ts';
+import { OpeningHours } from '../models/places';
 import {
     ConsolidatedOpeningHours,
     consolidateOpeningHours,
-} from './opening-hours.ts';
+} from './opening-hours';
 
 describe('opening-hours', () => {
     describe('consolidateOpeningHours()', () => {

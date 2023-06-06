@@ -1,6 +1,6 @@
 import { range } from 'lodash';
 import { DateTime } from 'luxon';
-import { WeekdayName } from '../models/places.ts';
+import { WeekdayName } from '../models/places';
 
 /** Maps `WeekdayName` values to JavaScript `Date`'s, e.g. JS_WEEKDAY_NAME_ORDER[0] is sunday */
 const JS_WEEKDAY_NAME_ORDER: WeekdayName[] = [

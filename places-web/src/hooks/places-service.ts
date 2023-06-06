@@ -1,5 +1,5 @@
-import { createPlacesService, PlacesService } from '../services/places.ts';
-import { useHttpClient } from './http-client.ts';
+import { createPlacesService, PlacesService } from '../services/places';
+import { useHttpClient } from './http-client';
 
 const defaultPlacesService = createPlacesService(useHttpClient());
 

@@ -1,7 +1,7 @@
 import { last, isEqual } from 'lodash';
 
-import { OpeningHours, OpeningPeriod, WeekdayName } from '../models/places.ts';
-import { allWeekdayNames } from './weekdays.ts';
+import { OpeningHours, OpeningPeriod, WeekdayName } from '../models/places';
+import { allWeekdayNames } from './weekdays';
 
 /** Representation of consecutive weekdays with identical opening hours */
 export interface ConsolidatedOpeningHours {

@@ -164,6 +164,8 @@ function convertUpstreamContactToLink(
     upstreamContact: UpstreamContact,
 ): PlaceLink | null {
     if (isUpstreamPhoneContact(upstreamContact)) {
+        // NOTE: (jou) Some places have multiple phone numbers and/or fax numbers. Didn't find a way to keep
+        //             determine the purpose of the number though, so just displaying them all the same for now.
         return {
             type: 'phone',
             contactId: upstreamContact.id,

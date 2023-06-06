@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { PlacesDetailEntry } from '../models/places.ts';
-import { useLoadingState } from '../hooks/loading-state.ts';
-import { usePlacesService } from '../hooks/places-service.ts';
+import { PlacesDetailEntry } from '../models/places';
+import { useLoadingState } from '../hooks/loading-state';
+import { usePlacesService } from '../hooks/places-service';
 
 // NOTE: (jou) This is the store that handles place detail entities.
 

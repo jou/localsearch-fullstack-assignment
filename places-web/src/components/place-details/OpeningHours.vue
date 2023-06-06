@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ConsolidatedOpeningHours } from '../../utils/opening-hours.ts';
-import { formatWeekday } from '../../utils/weekdays.ts';
+import { ConsolidatedOpeningHours } from '../../utils/opening-hours';
+import { formatWeekday } from '../../utils/weekdays';
 
 defineProps<{
     openingHours: ConsolidatedOpeningHours[];
 }>();
 
-function formatWeekdayInterval(
+function formatValidWeekdayRange(
     openingHoursEntry: ConsolidatedOpeningHours,
 ): string {
     if (openingHoursEntry.startWeekday === openingHoursEntry.endWeekday) {
@@ -27,7 +27,7 @@ function formatWeekdayInterval(
             :key="openingHoursEntry.startWeekday"
         >
             <div class="text-right">
-                {{ formatWeekdayInterval(openingHoursEntry) }}
+                {{ formatValidWeekdayRange(openingHoursEntry) }}
             </div>
             <div>
                 <template v-if="openingHoursEntry.openingPeriods">
@@ -40,7 +40,7 @@ function formatWeekdayInterval(
                         }}
                     </p>
                 </template>
-                <template v-else> Closed </template>
+                <template v-else>Closed</template>
             </div>
         </template>
     </div>
@@ -49,6 +49,6 @@ function formatWeekdayInterval(
 <style scoped>
 .opening-hours {
     display: grid;
-    grid-template-columns: fit-content(80%) auto;
+    grid-template-columns: fit-content(75%) auto;
 }
 </style>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { usePlaceDetailsStore } from '../stores/placeDetails.ts';
+import { usePlaceDetailsStore } from '../stores/placeDetails';
 import { computed, watchEffect } from 'vue';
-import { PlacesDetailEntry } from '../models/places.ts';
+import { PlacesDetailEntry } from '../models/places';
 import PageLayout from '../components/base/PageLayout.vue';
 import PlaceDetails from '../components/place-details/PlaceDetails.vue';
 import { storeToRefs } from 'pinia';

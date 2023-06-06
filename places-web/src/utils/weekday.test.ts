@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { allWeekdayNames, allWeekdayNumbers } from './weekdays.ts';
+import { allWeekdayNames, allWeekdayNumbers } from './weekdays';
 
 describe('weekday utils', () => {
     describe('allWeekdayNumbers', () => {

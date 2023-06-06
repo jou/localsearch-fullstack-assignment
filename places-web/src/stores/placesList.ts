@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 import { PlacesListEntry } from '../models/places';
 import { usePlacesService } from '../hooks/places-service';
-import { useLoadingState } from '../hooks/loading-state.ts';
+import { useLoadingState } from '../hooks/loading-state';
 
 // NOTE: (jou) This is the store that handles listing & searching of places.
 
